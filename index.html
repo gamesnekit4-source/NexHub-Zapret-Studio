@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexHub - Zapret Studio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-dark">
+  <!-- Dynamic Ambient Glow Layer -->
+  <div class="ambient-glow glow-top-right" id="glow-1"></div>
+  <div class="ambient-glow glow-center" id="glow-2"></div>
+
+  <!-- Frameless Titlebar -->
+  <header class="titlebar pywebview-drag-region">
+    <div class="titlebar-brand">
+      <svg class="brand-logo-svg" viewBox="0 0 24 24" fill="none">
+        <rect width="24" height="24" rx="7" fill="url(#titleLogoGrad)"/>
+        <path d="M12 4L19 12L12 20L5 12Z" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="2.2" fill="#ffffff"/>
+        <defs>
+          <linearGradient id="titleLogoGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#3b82f6"/>
+            <stop offset="1" stop-color="#1d4ed8"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="titlebar-title">NexHub <span class="badge-zapret">ZAPRET STUDIO</span></span>
+    </div>
+
+    <div class="titlebar-controls no-drag">
+      <button class="btn-ctrl" id="btn-fullscreen" title="Полноэкранный режим (F11)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+        </svg>
+      </button>
+      <button class="btn-ctrl" id="btn-minimize" title="Свернуть">
+        <svg width="11" height="11" viewBox="0 0 12 12"><line x1="2" y1="6" x2="10" y2="6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <button class="btn-ctrl" id="btn-maximize" title="Развернуть">
+        <svg width="11" height="11" viewBox="0 0 12 12"><rect x="2" y="2" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.4" rx="1.5"/></svg>
+      </button>
+      <button class="btn-ctrl btn-close" id="btn-close" title="Закрыть">
+        <svg width="11" height="11" viewBox="0 0 12 12"><path d="M2.5 2.5L9.5 9.5M9.5 2.5L2.5 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-box">
+          <svg class="sidebar-brand-icon" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="10" fill="url(#brandGrad)"/>
+            <path d="M16 6L24 16L16 26L8 16Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+            <circle cx="16" cy="16" r="2.6" fill="#ffffff"/>
+            <defs>
+              <linearGradient id="brandGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#3b82f6"/>
+                <stop offset="1" stop-color="#1d4ed8"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="logo-text">
+            <h1 class="brand-name">NexHub</h1>
+            <p class="brand-tagline">Discord & YouTube Shield</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="zapret">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <span class="nav-label" data-i18n="nav_zapret">Главная (Запрет)</span>
+          <span class="zapret-status-dot" id="zapret-dot"></span>
+        </button>
+
+        <button class="nav-item" data-tab="settings">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <span class="nav-label" data-i18n="nav_settings">Настройки и Тема</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="status-indicator">
+          <span class="status-dot" id="network-dot"></span>
+          <span class="status-text" id="network-status" data-i18n="status_ready">Готов</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="content-area">
+
+      <!-- ================= TAB: MAIN ZAPRET ================= -->
+      <section class="tab-pane active" id="pane-zapret">
+        <div class="zapret-main-view">
+          
+          <!-- Top Hero Title -->
+          <div class="zapret-hero-header">
+            <div>
+              <h2 class="main-title" data-i18n="zapret_title">Обход замедлений <span class="text-accent">Discord & YouTube</span></h2>
+              <p class="main-subtitle" data-i18n="zapret_subtitle">Автономная защита видеопотоков, голосовых комнат и стримов через WinDivert</p>
+            </div>
+            <div class="hero-quick-actions">
+              <button class="btn-sm" id="btn-quick-fs">
+                <svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                <span data-i18n="btn_fullscreen">Полноэкранный режим</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Missing folder warning card -->
+          <div class="card card-warning-folder" id="zapret-folder-warning" style="display:none;">
+            <div class="warn-left">
+              <svg class="warn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <div>
+                <h4 data-i18n="warn_folder_title">Папка Azapret не найдена на этом ПК</h4>
+                <p class="text-dim" data-i18n="warn_folder_desc">Укажите папку с winws.exe и .bat файлами для работы обхода</p>
+              </div>
+            </div>
+            <button class="btn-action-primary" id="btn-browse-zapret-folder-warn">
+              <svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+              <span data-i18n="btn_choose_folder">Выбрать папку</span>
+            </button>
+          </div>
+
+          <!-- Central Big Power Switch -->
+          <div class="zapret-power-card">
+            <div class="zapret-pulse-wrap">
+              <div class="z-pulse-ring z-ring-1"></div>
+              <div class="z-pulse-ring z-ring-2"></div>
+              <button class="btn-zapret-power" id="btn-zapret-toggle" title="Нажмите для включения / выключения">
+                <svg class="icon-shield-power" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 7v5M9.5 9.5a4 4 0 1 0 5 0" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+            <div class="zapret-status-info">
+              <h3 class="z-status-title" id="zapret-status-title" data-i18n="zapret_status_inactive">ЗАПРЕТ ВЫКЛЮЧЕН</h3>
+              <p class="z-status-desc" id="zapret-status-sub" data-i18n="zapret_status_sub_inactive">Нажмите кнопку, чтобы запустить обход блокировок</p>
+            </div>
+          </div>
+
+          <!-- Controls Grid -->
+          <div class="zapret-grid">
+            <!-- Preset Selector Card -->
+            <div class="card card-preset">
+              <div class="card-head">
+                <svg class="card-head-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <h4 class="card-inner-title" data-i18n="zapret_preset_title">Пресет запуска (.bat)</h4>
+              </div>
+              <p class="card-inner-sub" data-i18n="zapret_preset_sub">Выберите bat-файл из вашей папки Azapret</p>
+
+              <div class="select-group">
+                <select id="select-zapret-bat" class="styled-select">
+                  <option value="general.bat">general.bat</option>
+                </select>
+              </div>
+
+              <div class="preset-action-buttons">
+                <button class="btn-action-primary" id="btn-zapret-run-preset">
+                  <svg class="btn-ic" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+                  <span data-i18n="btn_apply_preset">Запустить пресет</span>
+                </button>
+                <button class="btn-action-danger" id="btn-zapret-stop">
+                  <svg class="btn-ic" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+                  <span data-i18n="btn_stop">Остановить</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Diagnostics Card -->
+            <div class="card card-diag">
+              <div class="card-head">
+                <svg class="card-head-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <h4 class="card-inner-title" data-i18n="zapret_diag_title">Диагностика службы</h4>
+              </div>
+              <div class="diag-rows">
+                <div class="diag-row">
+                  <span class="d-lbl" data-i18n="diag_proc">Процесс winws:</span>
+                  <span class="d-val status-val" id="diag-winws-status">Остановлен</span>
+                </div>
+                <div class="diag-row">
+                  <span class="d-lbl" data-i18n="diag_driver">Драйвер WinDivert:</span>
+                  <span class="d-val" id="diag-divert-status">Готов (WinDivert64.sys)</span>
+                </div>
+                <div class="diag-row">
+                  <span class="d-lbl" data-i18n="diag_folder">Каталог:</span>
+                  <span class="d-val text-truncate" id="diag-folder-path">D:\Azapret-discord-youtube-1.10.3</span>
+                </div>
+              </div>
+
+              <div class="diag-footer-btns">
+                <button class="btn-sm" id="btn-browse-zapret-folder">
+                  <svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+                  <span data-i18n="btn_choose_folder">Выбрать папку</span>
+                </button>
+                <button class="btn-sm" id="btn-open-zapret-folder">
+                  <svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg>
+                  <span data-i18n="btn_open_folder">В Проводнике</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= TAB: SETTINGS & THEME STUDIO ================= -->
+      <section class="tab-pane" id="pane-settings">
+        <div class="settings-container">
+          <div class="settings-header">
+            <h2 class="main-title" data-i18n="settings_title">Студия Кастомизации и Настроек</h2>
+            <p class="main-subtitle" data-i18n="settings_subtitle">Настройте любые цвета, тему, градиенты, интенсивность свечения и размытия</p>
+          </div>
+
+          <div class="settings-sections">
+            <!-- Accent Color Picker -->
+            <div class="card setting-card">
+              <div class="setting-title-row">
+                <svg class="setting-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+                <div>
+                  <h4 data-i18n="set_accent_title">Акцентный цвет (Accent Color)</h4>
+                  <p class="setting-hint" data-i18n="set_accent_hint">Выберите цвет из палитры или укажите любой свой оттенок</p>
+                </div>
+              </div>
+
+              <div class="color-palette-grid">
+                <button class="color-circle active" data-color="#3b82f6" style="background:#3b82f6;" title="Electric Blue"></button>
+                <button class="color-circle" data-color="#06b6d4" style="background:#06b6d4;" title="Cyber Cyan"></button>
+                <button class="color-circle" data-color="#8b5cf6" style="background:#8b5cf6;" title="Neon Violet"></button>
+                <button class="color-circle" data-color="#10b981" style="background:#10b981;" title="Emerald Green"></button>
+                <button class="color-circle" data-color="#f43f5e" style="background:#f43f5e;" title="Crimson Rose"></button>
+                <button class="color-circle" data-color="#f59e0b" style="background:#f59e0b;" title="Sunset Gold"></button>
+                <button class="color-circle" data-color="#84cc16" style="background:#84cc16;" title="Acid Lime"></button>
+                <button class="color-circle" data-color="#ec4899" style="background:#ec4899;" title="Magenta Glow"></button>
+                
+                <div class="custom-color-picker-box">
+                  <input type="color" id="input-custom-color" value="#3b82f6" title="Выбрать любой свой цвет">
+                  <span class="custom-color-label" data-i18n="lbl_custom_color">Свой цвет</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Theme Style -->
+            <div class="card setting-card">
+              <div class="setting-title-row">
+                <svg class="setting-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                <div>
+                  <h4 data-i18n="set_theme_mode">Стиль темы оформления</h4>
+                  <p class="setting-hint" data-i18n="set_theme_mode_hint">Базовый тон фона приложения</p>
+                </div>
+              </div>
+
+              <div class="theme-options-grid">
+                <button class="btn-theme-opt active" data-theme="theme-dark">
+                  <span class="th-dot" style="background:#080c14;"></span>
+                  <span>NexHub Midnight</span>
+                </button>
+                <button class="btn-theme-opt" data-theme="theme-oled">
+                  <span class="th-dot" style="background:#000000;"></span>
+                  <span>Deep OLED Black</span>
+                </button>
+                <button class="btn-theme-opt" data-theme="theme-neon">
+                  <span class="th-dot" style="background:#050811;"></span>
+                  <span>Cyberpunk Glow</span>
+                </button>
+                <button class="btn-theme-opt" data-theme="theme-slate">
+                  <span class="th-dot" style="background:#0f172a;"></span>
+                  <span>Minimalist Slate</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Gradient & Glow Effects Customization -->
+            <div class="card setting-card">
+              <div class="setting-title-row">
+                <svg class="setting-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <div>
+                  <h4 data-i18n="set_effects_title">Градиент и Неоновое свечение</h4>
+                  <p class="setting-hint" data-i18n="set_effects_hint">Настройка атмосферных световых эффектов и размытия</p>
+                </div>
+              </div>
+
+              <div class="effects-sliders">
+                <!-- Glow Intensity -->
+                <div class="slider-field">
+                  <div class="slider-header">
+                    <label data-i18n="lbl_glow_intensity">Интенсивность неонового свечения:</label>
+                    <span class="slider-val" id="val-glow-intensity">75%</span>
+                  </div>
+                  <input type="range" min="0" max="100" value="75" class="styled-range" id="range-glow-intensity">
+                </div>
+
+                <!-- Backdrop Blur -->
+                <div class="slider-field">
+                  <div class="slider-header">
+                    <label data-i18n="lbl_blur_amount">Степень размытия карточек (Backdrop Blur):</label>
+                    <span class="slider-val" id="val-blur-amount">16px</span>
+                  </div>
+                  <input type="range" min="0" max="30" value="16" class="styled-range" id="range-blur-amount">
+                </div>
+
+                <!-- Gradient Type Buttons -->
+                <div class="gradient-types-row">
+                  <label class="input-sublabel" data-i18n="lbl_gradient_type">Тип фонового градиента:</label>
+                  <div class="grad-buttons">
+                    <button class="btn-sm btn-grad-type active" data-grad="radial" data-i18n="grad_radial">Неоновые сферы</button>
+                    <button class="btn-sm btn-grad-type" data-grad="aurora" data-i18n="grad_aurora">Аврора (Aurora)</button>
+                    <button class="btn-sm btn-grad-type" data-grad="linear" data-i18n="grad_linear">Линейный</button>
+                    <button class="btn-sm btn-grad-type" data-grad="flat" data-i18n="grad_flat">Без градиента (Flat)</button>
+                  </div>
+                </div>
+
+                <!-- 60 FPS Toggle -->
+                <div class="toggle-row">
+                  <div>
+                    <label for="check-animations" data-i18n="lbl_animations">Плавные 60 FPS анимации интерфейса</label>
+                    <p class="toggle-hint" data-i18n="lbl_animations_hint">Отключите для максимальной производительности на слабых ПК</p>
+                  </div>
+                  <input type="checkbox" id="check-animations" checked class="styled-checkbox">
+                </div>
+              </div>
+            </div>
+
+            <!-- Language and Folder Settings -->
+            <div class="card setting-card">
+              <div class="setting-title-row">
+                <svg class="setting-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <div>
+                  <h4 data-i18n="set_system_title">Язык и Пути</h4>
+                  <p class="setting-hint" data-i18n="set_system_hint">Выбор языка интерфейса и папки Azapret</p>
+                </div>
+              </div>
+
+              <div class="lang-selector-group">
+                <button class="btn-lang active" data-lang="ru">Русский</button>
+                <button class="btn-lang" data-lang="en">English</button>
+              </div>
+
+              <div class="form-field" style="margin-top:10px;">
+                <label data-i18n="lbl_zapret_path">Путь к папке Azapret:</label>
+                <div class="folder-input-row">
+                  <input type="text" id="input-zapret-folder" class="styled-input" value="D:\Azapret-discord-youtube-1.10.3">
+                  <button class="btn-action-primary" id="btn-browse-folder-settings">
+                    <svg class="btn-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+                    <span data-i18n="btn_choose_folder">Обзор...</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

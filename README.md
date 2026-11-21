@@ -1,92 +1,160 @@
+<div align="center">
+
 # ⚡ NexHub — Zapret DPI Studio
 
-A modern, fast, and elegant GUI for bypassing Discord & YouTube throttling on Windows (powered by WinDivert / winws).
+**Современный, сверхбыстрый и стильный графический клиент для обхода замедлений Discord и YouTube на Windows.**
+
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-blue?style=for-the-badge&logo=windows)](https://github.com)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Engine](https://img.shields.io/badge/Engine-PyWebView%20%2B%20WebView2-informational?style=for-the-badge)](https://pywebview.flowrl.com)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+
+<br/>
+
+> **NexHub** объединяет мощь низкоуровневого фильтра пакетов **WinDivert / winws** с премиальным Glassmorphism-интерфейсом, плавными анимациями 60 FPS и полной свободой кастомизации. Больше никаких неудобных черных консольных окон!
+
+</div>
 
 ---
 
-## 💡 Why NexHub?
+## 🌟 Ключевые возможности
 
-Traditional DPI bypass tools rely on black command prompt windows and manual configuration files. **NexHub** elevates this experience by providing:
-- A clean, modern Glassmorphism interface with zero command prompt clutter.
-- One-click startup preset switching (`.bat` profiles).
-- High reliability with a pure Win32 process controller that prevents driver deadlocks and memory leaks.
-- Complete visual personalization (OLED Black, Cyberpunk, custom accent colors, glows, and backdrop blurs).
-
----
-
-## ✨ Features
-
-- 🚀 **1-Click Control:** Instant start and stop for packet filtering services.
-- 📁 **Automatic Preset Discovery:** Scans your Azapret folder and dynamically detects all available `.bat` scripts (`general.bat`, alternate strategies, etc.).
-- 🎨 **Customization Studio:**
-  - 8 curated color presets + custom Hex Color Picker.
-  - 4 Base Theme Styles: *Midnight*, *OLED Pure Black*, *Cyberpunk*, *Slate*.
-  - 4 Ambient Gradient Types: *Radial Spheres*, *Aurora Mesh*, *Linear*, *Pure Flat*.
-  - Fine-grained sliders for Neon Glow Intensity and Backdrop Blur.
-  - Optional toggle to disable animations for maximum performance on lower-end systems.
-- ⚡ **Rock-Solid Stability:**
-  - Instant process kill via native Win32 `TerminateProcess` API.
-  - Completely non-blocking asynchronous launch (0 ms UI latency).
-  - Isolated WebView2 session cache per instance to prevent sharing violations and "Not Responding" errors.
-- 🖥️ **Fullscreen Mode:** Toggle via header button or standard `F11` shortcut.
-- 🌐 **Dual Language Support:** Instant switching between English and Russian (EN / RU).
-- 💾 **State Persistence:** Automatically saves your preferred preset, theme, and language.
+- 🚀 **Мгновенный запуск в 1 клик:** Автоматическое обнаружение установленного каталога `Azapret`, распознавание всех `.bat` пресетов (`general.bat`, `ALT` и др.) и их запуск без подвисаний.
+- 🎨 **Студия кастомизации оформления:**
+  - **8 готовых палитр + Color Picker:** выбор любого оттенка акцентного цвета.
+  - **4 стиля темы:** *Midnight* (Глубокий синий), *OLED Pure Black*, *Cyberpunk Neon*, *Slate Minimal*.
+  - **4 типа градиентов:** Сферы свечения (*Radial*), Северное сияние (*Aurora*), Угловой (*Linear*), Минималистичный (*Flat*).
+  - Слайдеры регулировки интенсивности неонового свечения и глубины размытия (Backdrop Blur).
+  - Тумблер отключения анимаций для максимального FPS на слабых видеокартах.
+- ⚡ **Низкоуровневая стабильность (Pure Win32 API):**
+  - Опрос и мгновенное завершение процессов `winws.exe` через нативные системные вызовы Windows (`CreateToolhelp32Snapshot`, `TerminateProcess`), исключая застревание драйвера в памяти.
+  - Асинхронный запуск без блокировки интерфейса (0 мс задержки UI).
+  - Изолированный кэш сессии WebView2 (исключает ошибки «*Программа не отвечает*» и конфликты занятых файлов при повторном открытии).
+- 🖥️ **Полноэкранный режим:** Поддержка полноэкранного режима по кнопке или горячей клавише `F11`.
+- 🌐 **Двуязычный интерфейс:** Полная локализация на Русский и Английский языки (RU / EN) с переключением на лету.
+- 💾 **Автосохранение настроек:** Все предпочтения, выбранный пресет и цветовая гамма сохраняются в конфигурационном файле пользователя.
 
 ---
 
-## 🛠️ System Requirements
+## 📸 Интерфейс приложения
 
-- **OS:** Windows 10 / 11 (64-bit)
-- **Privileges:** Administrator rights (required for the low-level WinDivert network packet filter driver)
-- **Dependencies:** An Azapret distribution folder containing `winws.exe` (e.g., `D:\Azapret-discord-youtube-1.10.3`)
+```
++-----------------------------------------------------------------------------------+
+|  [⚡ NexHub]   Главная (Запрет)      Настройки и Тема               [ _  []  X ]   |
+|-----------------------------------------------------------------------------------|
+|                                                                                   |
+|     Обход замедлений Discord & YouTube                         [ Полноэкранный ] |
+|     Автономная защита голосовых комнат, стримов и видео 4K                        |
+|                                                                                   |
+|                              (( ⏻ ))                                             |
+|                          ЗАПРЕТ АКТИВЕН                                           |
+|               Служба winws.exe защищает сетевой трафик                            |
+|                                                                                   |
+|     +-------------------------------+   +------------------------------------+    |
+|     | Пресет запуска (.bat)         |   | Диагностика службы                 |    |
+|     | [ general.bat (Рекомендуемый) ]|   | Процесс: Работает (winws.exe)      |    |
+|     | [▶ Запустить]   [■ Остановить]|   | Драйвер: WinDivert64.sys           |    |
+|     +-------------------------------+   +------------------------------------+    |
++-----------------------------------------------------------------------------------+
+```
 
 ---
 
-## 🚀 Installation & Usage
+## 🛠️ Системные требования
 
-### Option 1: Standalone Binary (For End Users)
-1. Download the latest **`NexHub.exe`** from the Releases section.
-2. Run the application as **Administrator**.
-3. Select your desired preset from the dropdown and click **"Launch Preset"**.
+- **ОС:** Windows 10 / 11 (64-bit)
+- **Права:** Запуск от имени Администратора (требуется для драйвера сетевого захвата WinDivert)
+- **Компоненты:** Microsoft Edge WebView2 Runtime (встроен по умолчанию в Windows 10/11)
+- **Наличие папки Azapret:** Каталог с `winws.exe` и `.bat` файлами (например, `D:\Azapret-discord-youtube-1.10.3`).
 
-### Option 2: Run from Source (For Developers)
-1. Clone the repository:
+---
+
+## 🚀 Установка и запуск
+
+### Вариант 1. Запуск готового `.exe` (Для пользователей)
+1. Скачайте актуальный файл **`NexHub.exe`** из раздела [Releases](../../releases) или запустите собранный файл.
+2. При запуске подтвердите запрос контроля учетных записей (UAC) для работы сетевого фильтра.
+3. Выберите нужный `.bat` пресет (по умолчанию `general.bat`) и нажмите **«Запустить пресет»**!
+
+---
+
+### Вариант 2. Запуск из исходного кода (Для разработчиков)
+
+1. **Клонируйте репозиторий:**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/NexHub.git
-   cd NexHub
+   git clone https://github.com/your-username/nexhub-zapret-studio.git
+   cd nexhub-zapret-studio
    ```
-2. Install required Python packages:
+
+2. **Создайте и активируйте виртуальное окружение (рекомендуется):**
+   ```bash
+   python -m venv venv
+   .\venv\Scripts\activate
+   ```
+
+3. **Установите зависимости:**
    ```bash
    pip install -r requirements.txt
    ```
-3. Launch the application:
+
+4. **Запустите приложение:**
    ```bash
    python app.py
    ```
 
 ---
 
-## 📦 Building Standalone Executable
+## 📦 Сборка в автономный `.exe`
 
-To package the project into a single, self-contained `.exe` with elevated permissions and icon:
+В проект включен скрипт автоматической сборки `build.py`, создающий оптимизированный монолитный исполняемый файл без консольных окон и с манифестом повышенных привилегий:
+
 ```bash
 python build.py
 ```
-The compiled output will be generated inside `dist/NexHub.exe`.
+
+Готовый файл `NexHub.exe` будет помещен в папку `dist/`, а также автоматически скопирован в вашу системную папку `Загрузки`.
 
 ---
 
-## ⌨️ Keyboard Shortcuts
+## 📂 Структура проекта
 
-| Shortcut | Description |
+```plaintext
+nexhub-zapret-studio/
+│
+├── app.py                  # Главная точка входа, инициализация окна PyWebView и JS API
+├── build.py                # Скрипт сборки в единый .exe через PyInstaller
+├── NexHub.spec             # Спецификация сборщика PyInstaller
+├── requirements.txt        # Список зависимостей Python
+├── README.md               # Документация проекта
+│
+├── assets/                 # Иконки и графические ресурсы
+│   ├── icon.ico            # Системная иконка Windows
+│   └── icon.png            # PNG иконка приложения
+│
+├── backend/                # Серверная логика на Python
+│   ├── zapret_runner.py    # Менеджер процессов winws.exe, Win32 API и асинхронный запуск
+│   └── config_mgr.py       # Сохранение конфигураций и пользовательских настроек в %APPDATA%
+│
+└── ui/                     # Современный фронтенд (HTML5, CSS3, ES6)
+    ├── index.html          # Разметка интерфейса
+    ├── styles.css          # Стилизация Glassmorphism, CSS-переменные тем и анимации
+    ├── app.js              # Логика UI, локализация (RU/EN), debounce и опрос состояния
+    └── icon.png            # Логотип в заголовке
+```
+
+---
+
+## ⌨️ Горячие клавиши
+
+| Сочетание | Действие |
 | :--- | :--- |
-| <kbd>F11</kbd> | Toggle Fullscreen Mode |
-| <kbd>Esc</kbd> | Dismiss active dialogs |
+| <kbd>F11</kbd> | Переключение полноэкранного режима |
+| <kbd>Esc</kbd> | Выход из модальных окон |
 
 ---
 
-## ⚖️ License & Disclaimer
+## ⚖️ Лицензия и Отказ от ответственности
 
-Distributed under the **MIT License**.
+Проект распространяется под лицензией **MIT**. 
 
-*NexHub is a graphical front-end for the `winws` utility and traffic routing scripts. It is designed to optimize multimedia streaming connectivity and prevent packet loss.*
+*Данное программное обеспечение является графической оболочкой (GUI) для управления утилитой `winws` и скриптами фильтрации трафика. Программа предназначена для обеспечения стабильности сетевого подключения и оптимизации передачи мультимедиа-трафика.*
